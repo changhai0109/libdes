@@ -8,35 +8,12 @@ include(FindPkgConfig)
 
 # numactl
 pkg_check_modules(numactl REQUIRED IMPORTED_TARGET numa)
-  get_target_property(
-  NUMACTL_INC
-  PkgConfig::numactl
-  INTERFACE_INCLUDE_DIRECTORIES
-)
 
 # zlib
 pkg_check_modules(zlib REQUIRED IMPORTED_TARGET zlib)
-  get_target_property(
-  ZLIB_INC
-  PkgConfig::zlib
-  INTERFACE_INCLUDE_DIRECTORIES
-)
 
-# libprim
-pkg_check_modules(libprim REQUIRED IMPORTED_TARGET libprim)
-  get_target_property(
-  LIBPRIM_INC
-  PkgConfig::libprim
-  INTERFACE_INCLUDE_DIRECTORIES
-)
-
-# librnd
-pkg_check_modules(librnd REQUIRED IMPORTED_TARGET librnd)
-  get_target_property(
-  LIBRND_INC
-  PkgConfig::librnd
-  INTERFACE_INCLUDE_DIRECTORIES
-)
+add_subdirectory(third_party/librnd)
+add_subdirectory(third_party/libprim)
 
 add_library(
   des
@@ -87,18 +64,16 @@ target_include_directories(
   des
   PUBLIC
   ${PROJECT_SOURCE_DIR}/src
-  ${NUMACTL_INC}
-  ${ZLIB_INC}
-  ${LIBPRIM_INC}
-  ${LIBRND_INC}
+  ${NUMACTL_INCLUDE_DIR}
+  ${ZLIB_INCLUDE_DIR}
   )
 
 target_link_libraries(
   des
   PkgConfig::numactl
   PkgConfig::zlib
-  PkgConfig::libprim
-  PkgConfig::librnd
+  prim
+  rnd
   )
 
 include(GNUInstallDirs)

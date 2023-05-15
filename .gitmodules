@@ -1,0 +1,6 @@
+[submodule "third_party/libprim"]
+	path = third_party/libprim
+	url = git@github.com:nicmcd/libprim.git
+[submodule "third_party/librnd"]
+	path = third_party/librnd
+	url = git@github.com:nicmcd/librnd.git

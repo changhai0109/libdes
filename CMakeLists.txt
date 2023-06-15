@@ -12,8 +12,6 @@ pkg_check_modules(numactl REQUIRED IMPORTED_TARGET numa)
 # zlib
 pkg_check_modules(zlib REQUIRED IMPORTED_TARGET zlib)
 
-add_subdirectory(third_party/librnd)
-add_subdirectory(third_party/libprim)
 
 add_library(
   des
@@ -49,6 +47,14 @@ add_library(
   ${PROJECT_SOURCE_DIR}/src/des/util/BasicObserver.h
   ${PROJECT_SOURCE_DIR}/src/des/util/Scheduler.h
   ${PROJECT_SOURCE_DIR}/src/des/util/RoundRobinMapper.h
+
+  ${PROJECT_SOURCE_DIR}/src/rnd/Random.cc
+  ${PROJECT_SOURCE_DIR}/src/rnd/Queue.h
+  ${PROJECT_SOURCE_DIR}/src/rnd/Random.h
+  ${PROJECT_SOURCE_DIR}/src/rnd/Queue.tcc
+  ${PROJECT_SOURCE_DIR}/src/rnd/Random.tcc
+
+  ${PROJECT_SOURCE_DIR}/src/prim/prim.h
   )
 
 set_target_properties(
@@ -72,8 +78,6 @@ target_link_libraries(
   des
   PkgConfig::numactl
   PkgConfig::zlib
-  prim
-  rnd
   )
 
 include(GNUInstallDirs)
